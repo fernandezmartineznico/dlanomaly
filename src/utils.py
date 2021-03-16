@@ -133,16 +133,20 @@ def plot_label_clusters(model, data, labels, fig_size=12, scale=3.):
     plt.show()
 
 def plot_label_clusters_vae(model, data, labels, fig_size=12):
-  z_mean,_,_ = model.predict(data)
-  df_z_mean = pd.DataFrame(z_mean).add_prefix('Z_')
-  df_z_mean["label"] = labels
-  sns.pairplot(pd.DataFrame(df_z_mean), hue="label")
+    print(labels.unique())
+    colors = []
+    for i, val in enumerate(labels.unique()):
+        colors.append(sns.color_palette()[i])
+    z_mean,_,_ = model.predict(data)
+    df_z_mean = pd.DataFrame(z_mean).add_prefix('Z_')
+    df_z_mean["label"] = labels
+    sns.pairplot(pd.DataFrame(df_z_mean), hue="label", palette=colors)
 
 def plot_label_clusters_cvae(model, data, labels, fig_size=12):
-  z_mean = model.predict([data, np.asarray([[1., 0.]]*data.shape[0])])
-  df_z_mean = pd.DataFrame(z_mean).add_prefix('Z_')
-  df_z_mean["label"] = labels
-  sns.pairplot(pd.DataFrame(df_z_mean), hue="label")
+    z_mean = model.predict([data, np.asarray([[1., 0.]]*data.shape[0])])
+    df_z_mean = pd.DataFrame(z_mean).add_prefix('Z_')
+    df_z_mean["label"] = labels
+    sns.pairplot(pd.DataFrame(df_z_mean), hue="label", palette=[sns.color_palette()[0], sns.color_palette()[1]])
 
 
 def save_report_json(data, name):
