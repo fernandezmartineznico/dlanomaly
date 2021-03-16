@@ -13,8 +13,8 @@ import tensorflow as tf
 tf.random.set_seed(SEED)
 from tensorflow.keras.models import Sequential, save_model, load_model
 from tensorflow.keras.layers import InputLayer, Dense, Activation, Dropout, BatchNormalization
-
-
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
 
 from datetime import datetime
 # import logging
@@ -150,7 +150,7 @@ class LossAE(tf.keras.layers.Layer):
 class AE(tf.keras.Model):
     def __init__(
         self, encoder_neurons, decoder_neurons, output_dim,
-        hidden_activation, output_activation, loss,**kwargs
+        hidden_activation, output_activation, **kwargs
         ):
         super(AE, self).__init__(**kwargs)
         self.n_features_ = output_dim
@@ -158,7 +158,7 @@ class AE(tf.keras.Model):
         self.decoder_neurons = decoder_neurons
         self.hidden_activation = hidden_activation
         self.output_activation = output_activation
-        self.loss = loss
+        # self.loss = loss
 
         # Capas del AE
         self.encoder = Encoder(
@@ -388,7 +388,8 @@ def fit_ae_model(
                         epochs=epochs, 
                         batch_size=batch_size,
                         validation_data=validation_data,
-                        callbacks=[callbacks]
+                        callbacks=[callbacks],
+                        verbose=verbose
                         )
     return history
 
@@ -460,7 +461,12 @@ def fit_vae_model(
                         epochs=epochs, 
                         batch_size=batch_size,
                         validation_data=validation_data,
-                        callbacks=[callbacks]
+                        callbacks=callbacks,
+                        verbose=verbose
                         )
 
     return history
+
+    
+
+    
