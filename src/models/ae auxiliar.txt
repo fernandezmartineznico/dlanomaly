@@ -1,0 +1,164 @@
+=================================================================================
+# import keras.backend as K
+# from keras.layers import Lambda
+
+# latent_dim = 5
+
+# input_img = Input(shape=(29,), name="input")
+# x = Dense(20, activation='relu', name="intermediate_encoder_1")(input_img)
+# x = Dense(10, activation='relu', name="intermediate_encoder_2")(x)
+
+# z_mu = Dense(latent_dim)(x)
+# z_log_sigma = Dense(latent_dim)(x)
+
+# # sampling function
+# class Sampling(tf.keras.layers.Layer):
+#   def __init__(self):
+#       super(Sampling, self).__init__()
+
+#   def build(self, input_shape):
+#       _, sigma_shape = input_shape
+#       self.sigma_shape = (sigma_shape[-1], )
+
+#   def call(self, inputs):
+#       mu, sigma = inputs
+
+#       # Add loss
+#       #kl_loss = 0.5 * K.sum(K.exp(sigma) + K.square(mu) - 1. - sigma, axis=1)
+#       #self.add_loss(K.mean(kl_loss))
+      
+#       # Return sampling as before
+#       eps = K.random_normal(self.sigma_shape, mean=0., stddev=1.)
+#       return mu + K.exp(sigma / 2) * eps
+
+# # sample vector from the latent distribution
+# z = Sampling()([z_mu, z_log_sigma])
+
+# # decoder takes the latent distribution sample as input
+# decoder_input = Input((latent_dim,), name="input_decoder")
+
+# x = Dense(10, activation='relu', name="intermediate_decoder_1", input_shape=(latent_dim,))(decoder_input)
+# x = Dense(20, activation='relu', name="intermediate_decoder_2")(x)
+
+# # Expand to 784 total pixels
+# x = Dense(29, activation='sigmoid', name="original_decoder")(x)
+
+# # decoder model statement
+# decoder = Model(decoder_input, x)
+
+# # apply the decoder to the sample from the latent distribution
+# z_decoded = decoder(z)
+
+# # construct a custom layer to calculate the loss
+# class CustomVariationalLayer(tf.keras.layers.Layer):
+
+#     def vae_loss(self, x, z_decoded):
+#         x = K.flatten(x)
+#         z_decoded = K.flatten(z_decoded)
+#         # Reconstruction loss
+#         xent_loss = K.sum(K.mean(K.square(x - z_decoded), axis=-1))
+#         return xent_loss
+
+#     # adds the custom loss to the class
+#     def call(self, inputs):
+#         x = inputs[0]
+#         z_decoded = inputs[1]
+#         loss = self.vae_loss(x, z_decoded)
+#         self.add_loss(loss, inputs=inputs)
+#         return x
+
+# # apply the custom loss to the input images and the decoded latent distribution sample
+# y = CustomVariationalLayer()([input_img, z_decoded])
+
+# # VAE model statement
+# vae = Model(input_img, y)
+# vae.compile(optimizer='rmsprop', loss=None)
+
+# vae.fit(x=X_train_st[y_train == 0], y=None,
+#         shuffle=True,
+#         epochs=20,
+#         batch_size=32,
+#         validation_data=(X_val_st[y_val == 0], None))
+
+=============================================================================================================
+
+# from tensorflow.keras import layers
+
+
+# class Sampling(layers.Layer):
+#     """Uses (z_mean, z_log_var) to sample z, the vector encoding a digit."""
+
+#     def call(self, inputs):
+#         z_mean, z_log_var = inputs
+#         batch = tf.shape(z_mean)[0]
+#         dim = tf.shape(z_mean)[1]
+#         epsilon = tf.keras.backend.random_normal(shape=(batch, dim))
+#         return z_mean + tf.exp(0.5 * z_log_var) * epsilon
+
+
+# class Encoder(layers.Layer):
+#     """Maps MNIST digits to a triplet (z_mean, z_log_var, z)."""
+
+#     def __init__(self, latent_dim=32, intermediate_dim=64, name="encoder", **kwargs):
+#         super(Encoder, self).__init__(name=name, **kwargs)
+#         self.dense_proj = layers.Dense(intermediate_dim, activation="relu")
+#         self.dense_mean = layers.Dense(latent_dim)
+#         self.dense_log_var = layers.Dense(latent_dim)
+#         self.sampling = Sampling()
+
+#     def call(self, inputs):
+#         x = self.dense_proj(inputs)
+#         z_mean = self.dense_mean(x)
+#         z_log_var = self.dense_log_var(x)
+#         z = self.sampling((z_mean, z_log_var))
+#         return z_mean, z_log_var, z
+
+
+# class Decoder(layers.Layer):
+#     """Converts z, the encoded digit vector, back into a readable digit."""
+
+#     def __init__(self, original_dim, intermediate_dim=64, name="decoder", **kwargs):
+#         super(Decoder, self).__init__(name=name, **kwargs)
+#         self.dense_proj = layers.Dense(intermediate_dim, activation="relu")
+#         self.dense_output = layers.Dense(original_dim, activation="sigmoid")
+
+#     def call(self, inputs):
+#         x = self.dense_proj(inputs)
+#         return self.dense_output(x)
+
+
+# class VariationalAutoEncoder(tf.keras.Model):
+#     """Combines the encoder and decoder into an end-to-end model for training."""
+
+#     def __init__(
+#         self,
+#         original_dim,
+#         intermediate_dim=64,
+#         latent_dim=32,
+#         name="autoencoder",
+#         **kwargs
+#     ):
+#         super(VariationalAutoEncoder, self).__init__(name=name, **kwargs)
+#         self.original_dim = original_dim
+#         self.encoder = Encoder(latent_dim=latent_dim, intermediate_dim=intermediate_dim)
+#         self.decoder = Decoder(original_dim, intermediate_dim=intermediate_dim)
+
+#     def call(self, inputs):
+#         z_mean, z_log_var, z = self.encoder(inputs)
+#         reconstructed = self.decoder(z)
+#         # Add KL divergence regularization loss.
+#         kl_loss = -0.5 * tf.reduce_mean(
+#             z_log_var - tf.square(z_mean) - tf.exp(z_log_var) + 1
+#         )
+#         self.add_loss(kl_loss)
+#         return reconstructed
+
+# vae = VariationalAutoEncoder(29, 20, 10)
+
+# optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
+
+# vae.compile(optimizer, loss=tf.keras.losses.MeanSquaredError())
+# vae.fit(X_train_st[y_train == 0], X_train_st[y_train == 0], epochs=2, batch_size=64, validation_data=(X_train_st[y_train == 0], X_train_st[y_train == 0]))
+
+======================================================================================================
+
