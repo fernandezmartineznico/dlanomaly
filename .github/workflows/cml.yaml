@@ -1,0 +1,19 @@
+name: workflow-predict
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Model predict'
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+
+          # Your ML workflow goes here
+          sudo -H pip install -r requirements.txt
+          
+          cd src/
+          
+          sudo -H python predict_cvae.py
