@@ -12,7 +12,9 @@ jobs:
         run: |
 
           # Your ML workflow goes here
-          sudo -H apt install python3.7
+          sudo -H apt update
+          sudo
+          sudo -H apt install python3.7 -y
           python --version
           
           sudo -H pip install -r requirements-prod.txt
