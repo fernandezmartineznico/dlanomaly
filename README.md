@@ -41,8 +41,8 @@ Project Organization
 
 
 # Usage
-cd src/
-python3 pred_cvae.py (train_cvae.py for training the model)
+1. cd src/
+2. python3 pred_cvae.py (train_cvae.py for training the model)
 
 # Development
 Development is done in notebooks/, then refactored into src/
