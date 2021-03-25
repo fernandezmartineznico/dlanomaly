@@ -48,4 +48,4 @@ Project Organization
 Development is done in notebooks/, then refactored into src/
 
 ## Results
-![plot](.reports/figures/results_dlanomaly.png)
+![picture](reports/figures/results_dlanomaly.png)
