@@ -45,23 +45,11 @@ print("Eager execution: {}".format(tf.executing_eagerly()))
 ################################
 
 # # Read Data
-df = pd.read_csv('../data/prod/creditcard_prod.csv') #pd.read_csv('https://storage.googleapis.com/download.tensorflow.org/data/creditcard.csv')
-neg, pos = np.bincount(df['Class'])
-total = neg + pos
-pos / total
+df_X = pd.read_csv('../data/prod/creditcard_prod.csv') #pd.read_csv('https://storage.googleapis.com/download.tensorflow.org/data/creditcard.csv')
 
 # # Data pre-processing
-y=df['Class']
-df_X=df.drop('Class',1)
-
 df_X['Amount_log'] = np.log(df_X['Amount'] + 1)
 df_X=df_X.drop(['Amount', 'Time'],1)
-
-le= LabelEncoder().fit(y)
-encoded_Y = le.transform(y)  # convert categorical labels to integers
-# convert integers to dummy variables (i.e. one hot encoded)
-dummy_y = utils.to_categorical(encoded_Y)
-y_pred = dummy_y.copy()
 
 # load scaler
 scaler_name = "standardscaler"
@@ -69,8 +57,7 @@ filepath_scaler =F'..{os.sep}models{os.sep}{scaler_name}.pkl'
 pipeline_st = load(open(filepath_scaler, 'rb'))
 X_pred_st = pipeline_st.transform(df_X)
 
-print("# Dataset shape")
-print(X_pred_st.shape, y_pred.shape)
+print(X_pred_st.shape)
 
 
 ################################
@@ -93,5 +80,9 @@ final_model = load_model(
     F'..{os.sep}models{os.sep}logs{os.sep}{final_model_name}.h5', 
     compile=False)
 
-fpr, tpr, thresholds = metrics.roc_curve(y_pred[:,1], final_model.predict([X_pred_st, z_mean_pred])[:,0], pos_label=1)
-print("# AUC PROD: ",metrics.auc(fpr, tpr))
+pred = final_model.predict([X_pred_st, z_mean_pred])[:,0]
+print("Predictions: ", pred[:5])
+
+# Write AUC to a file
+report_name = "predictions-" + datetime.now().strftime('%Y%m%d')
+np.savetxt(F"../reports/{report_name}.txt", pred, delimiter=',')
