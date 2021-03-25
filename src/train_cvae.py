@@ -1,3 +1,7 @@
+################################
+########## IMPORTS #############
+################################
+
 #custom functions
 import os, sys
 sys.path.insert(0, '..')
@@ -18,7 +22,6 @@ from matplotlib import pyplot
 mpl.rcParams['figure.figsize'] = (12, 4)
 colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 warnings.filterwarnings('ignore')
-get_ipython().run_line_magic('matplotlib', 'inline')
 import seaborn as sns
 
 import os
@@ -45,9 +48,11 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, Normalizer
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
+print("# TF specs")
 print("TensorFlow version: {}".format(tf.__version__))
 print("TensorFlow keras version: {}".format(tf.keras.__version__))
 print("Eager execution: {}".format(tf.executing_eagerly()))
+
 
 ################################
 ########## DATA PREP ###########
@@ -86,19 +91,13 @@ X_train_st = pipeline_st.transform(X_train)
 X_val_st = pipeline_st.transform(X_val)
 X_test_st = pipeline_st.transform(X_test)
 
-# configure our pipeline
-pipeline_mm = Pipeline([
-                        #('normalizer', Normalizer()),
-                        ('scaler', MinMaxScaler())
-                        ])
+scaler_name = "standardscaler"
+filepath_scaler =F'..{os.sep}models{os.sep}{scaler_name}.pkl'
+dump(pipeline_st, open(filepath_scaler, 'wb'))
 
-# get normalization parameters by fitting to the training data
-pipeline_mm.fit(X_train)
-
-# transform the training and validation data with these parameters
-X_train_mm = pipeline_mm.transform(X_train)
-X_val_mm = pipeline_mm.transform(X_val)
-X_test_mm = pipeline_mm.transform(X_test)
+print("# Dataset shapes for (Train, Validation, Test)")
+print("X shape: ", X_train.shape, X_val.shape, X_test.shape)
+print("Y shape: ", y_train.shape, y_val.shape, y_test.shape)
 
 
 #################################
@@ -108,6 +107,8 @@ X_test_mm = pipeline_mm.transform(X_test)
 from sklearn.utils import class_weight
 weights = dict(enumerate(class_weight.compute_class_weight(
     'balanced', np.unique(y_train[:,1]), y_train[:,1])))
+
+print('# Balancing weights to: ', weights)
 
 ## Define Hyperparmeters
 n_z = 5 # latent space size
@@ -230,6 +231,10 @@ cvae_hist = cvae.fit([X_train_st, y_train], X_train_st,
                      verbose = 0
                      ).history
 
+# save encoder model
+encoder_name = "cvae-encoder"
+file_name = encoder_name + datetime.now().strftime('%Y%m%d')
+encoder.save(F'..{os.sep}models{os.sep}logs{os.sep}{file_name}.h5')
 
 ## Plot loss
 # Check plots - Loss
@@ -243,12 +248,13 @@ plt.legend(['train', 'val'], loc='upper right');
 scores_cvae_st = np.mean(np.power(X_test_st - cvae.predict([X_test_st, np.asarray([[1., 0.]]*X_test_st.shape[0])]), 2), axis=1)
 fpr, tpr, thresholds = metrics.roc_curve(np.array(y_test[:,1]), scores_cvae_st, pos_label=1)
 auc = metrics.auc(fpr, tpr)
-print(auc)
+print("# AUC TEST CVAE: ",auc)
 
 df_pf_cvae_st = performance_rank_df(y_test[:,1], scores_cvae_st)
-performance_rank_n(df_pf_cvae_st)
+print(performance_rank_n(df_pf_cvae_st))
 
 plot_label_clusters_cvae(encoder, X_val_st, y_val[:,1])
+
 
 #################################
 ########## CVAE MERGED ##########
@@ -297,8 +303,11 @@ plt.xlabel('epoch')
 plt.legend(['train', 'val'], loc='upper right');
 
 fpr, tpr, thresholds = metrics.roc_curve(y_test[:,1], final_model.predict([X_test.to_numpy(), z_mean_test])[:,0], pos_label=1)
-metrics.auc(fpr, tpr)
+print("# AUC TEST FINAL MODEL (CVAE+DNN merged): ",metrics.auc(fpr, tpr))
+
 
 df_pf_merged = performance_rank_df(y_test[:,1], final_model.predict([X_test.to_numpy(), z_mean_test])[:,0], if_score = False)
-performance_rank_n(df_pf_merged)
+print(performance_rank_n(df_pf_merged))
+
+
 
