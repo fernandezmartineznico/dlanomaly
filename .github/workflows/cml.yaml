@@ -17,3 +17,5 @@ jobs:
           cd src/
           
           sudo -H python predict_cvae.py
+
+          echo "TEST passed"
