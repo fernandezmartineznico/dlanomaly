@@ -15,11 +15,10 @@ jobs:
           # sudo -H apt update
           # sudo -H apt install python3.7 -y
           python --version
-          
           sudo -H pip install -r requirements-prod.txt
-          
-          cd src/
-          
-          sudo -H python predict_cvae.py
 
+          cd src/
+          sudo -H python predict_cvae.py
           echo "TEST passed"
+
+

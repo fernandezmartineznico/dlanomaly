@@ -10,6 +10,7 @@ from src.utils import performance_rank_df, performance_rank_n, performance_rank_
 from pickle import load
 import warnings
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 import os
 os.environ['PYTHONHASHSEED']=str(SEED)
@@ -57,6 +58,7 @@ filepath_scaler =F'..{os.sep}models{os.sep}{scaler_name}.pkl'
 pipeline_st = load(open(filepath_scaler, 'rb'))
 X_pred_st = pipeline_st.transform(df_X)
 
+print("# Data shape")
 print(X_pred_st.shape)
 
 
@@ -81,8 +83,18 @@ final_model = load_model(
     compile=False)
 
 pred = final_model.predict([X_pred_st, z_mean_pred])[:,0]
-print("Predictions: ", pred[:5])
+print("# Predictions: ", pred[:5])
 
 # Write AUC to a file
 report_name = "predictions-" + datetime.now().strftime('%Y%m%d')
-np.savetxt(F"../reports/{report_name}.txt", pred, delimiter=',')
+np.savetxt(F"../reports/predictions/{report_name}.txt", pred, delimiter=',')
+
+plt.style.use('ggplot')
+plt.hist(pred, bins=50)
+plt.axvline(pred.mean(), color='k', linestyle='dashed', linewidth=1)
+min_ylim, max_ylim = plt.ylim()
+plt.text(pred.mean()*1.1, max_ylim*0.9, 'Mean: {:.2f}'.format(pred.mean()))
+plt.title("predictions-" + datetime.now().strftime('%Y%m%d'))
+
+report_figure_name = "histogram_predictions-" + datetime.now().strftime('%Y%m%d')
+plt.savefig(F"../reports/figures/{report_figure_name}.png",dpi=120)
