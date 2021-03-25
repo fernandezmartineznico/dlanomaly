@@ -1,0 +1,17 @@
+name: predict-worfklow
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'predict test'
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+
+          # Your ML workflow goes here
+          conda create --name new_env --file requirements.txt
+          conda activate new_env
+          python3 predict_cvae.py
