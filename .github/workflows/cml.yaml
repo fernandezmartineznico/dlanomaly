@@ -1,0 +1,21 @@
+name: prod-cvae-predict
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Predict with model'
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+
+          # Your ML workflow goes here
+          pip install -r requirements.txt
+          cd src/
+          python3 predict_cvae.py
+
+          # Write your CML report
+          # cat results.txt >> report.md
+          # cml-send-comment report.md
