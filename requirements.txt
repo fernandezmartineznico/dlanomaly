@@ -1,119 +1,64 @@
-# This file may be used to create an environment using:
-# $ conda create --name <env> --file <this file>
-# platform: osx-64
-_tflow_select=2.3.0=mkl
-absl-py=0.12.0=py37hecd8cb5_0
-appnope=0.1.2=py37hecd8cb5_1001
-astor=0.8.1=py37hecd8cb5_0
-backcall=0.2.0=pyhd3eb1b0_0
-blas=1.0=mkl
-c-ares=1.17.1=h9ed2024_0
-ca-certificates=2020.10.14=0
-cairo=1.14.12=hc4e6be7_4
-certifi=2020.6.20=py37_0
-coverage=5.5=py37h9ed2024_2
-cycler=0.10.0=py37_0
-cython=0.29.22=py37h23ab428_0
-decorator=4.4.2=pyhd3eb1b0_0
-expat=2.2.10=hb1e8313_2
-fontconfig=2.13.1=ha9ee91d_0
-freetype=2.10.4=ha233b18_0
-fribidi=1.0.10=haf1e3a3_0
-gast=0.2.2=py37_0
-gettext=0.19.8.1=h15daf44_3
-glib=2.63.1=hd977a24_0
-google-pasta=0.2.0=py_0
-graphite2=1.3.14=h38d11af_0
-graphviz=2.40.1=hefbbd9a_2
-grpcio=1.36.1=py37h97de6d8_1
-h5py=2.10.0=py37h0601b69_1
-harfbuzz=1.8.8=hb8d4a28_0
-hdf5=1.10.6=hdbbcd12_0
-icu=58.2=h0a44026_3
-importlib-metadata=3.7.3=py37hecd8cb5_1
-intel-openmp=2019.4=233
-ipykernel=5.3.4=py37h5ca1d4c_0
-ipython=7.21.0=py37h01d92e1_0
-ipython_genutils=0.2.0=pyhd3eb1b0_1
-jedi=0.17.2=py37hecd8cb5_1
-joblib=1.0.1=pyhd3eb1b0_0
-jpeg=9b=he5867d9_2
-jupyter_client=6.1.7=py_0
-jupyter_core=4.7.1=py37hecd8cb5_0
-keras-applications=1.0.8=py_1
-keras-preprocessing=1.1.2=pyhd3eb1b0_0
-kiwisolver=1.3.1=py37h23ab428_0
-lcms2=2.11=h92f6f08_0
-libcxx=10.0.0=1
-libffi=3.2.1=h0a44026_1007
-libgfortran=3.0.1=h93005f0_2
-libiconv=1.16=h1de35cc_0
-libpng=1.6.37=ha441bb4_0
-libprotobuf=3.14.0=h2842e9f_0
-libsodium=1.0.18=h1de35cc_0
-libtiff=4.2.0=h9da4c3f_0
-libwebp-base=1.2.0=h9ed2024_0
-libxml2=2.9.10=h7cdb67c_3
-llvm-openmp=10.0.0=h28b9765_0
-lz4-c=1.9.3=h23ab428_0
-markdown=3.3.4=py37hecd8cb5_0
-matplotlib=3.3.4=py37hecd8cb5_0
-matplotlib-base=3.3.4=py37h8b3ea08_0
-mkl=2019.4=233
-mkl-service=2.3.0=py37h9ed2024_0
-mkl_fft=1.3.0=py37ha059aab_0
-mkl_random=1.1.1=py37h959d312_0
-ncurses=6.2=h0a44026_1
-numpy=1.19.2=py37h456fd55_0
-numpy-base=1.19.2=py37hcfb5961_0
-olefile=0.46=py37_0
-openssl=1.1.1j=h9ed2024_0
-opt_einsum=3.1.0=py_0
-pandas=1.2.3=py37hb2f4e1b_0
-pango=1.42.4=h7e27002_1
-parso=0.7.0=py_0
-pcre=8.44=hb1e8313_0
-pexpect=4.8.0=pyhd3eb1b0_3
-pickleshare=0.7.5=pyhd3eb1b0_1003
-pillow=8.1.2=py37h5270095_0
-pip=21.0.1=py37hecd8cb5_0
-pixman=0.40.0=haf1e3a3_0
-prompt-toolkit=3.0.8=py_0
-protobuf=3.14.0=py37h23ab428_1
-ptyprocess=0.7.0=pyhd3eb1b0_2
-pydot=1.4.2=py37hf985489_0
-pydotplus=2.0.2=pypi_0
-pygments=2.8.1=pyhd3eb1b0_0
-pyparsing=2.4.7=pyhd3eb1b0_0
-python=3.7.7=hc70fcce_0_cpython
-python-dateutil=2.8.1=pyhd3eb1b0_0
-python-graphviz=0.16=pypi_0
-python_abi=3.7=1_cp37m
-pytz=2021.1=pyhd3eb1b0_0
-pyzmq=20.0.0=py37h23ab428_1
-readline=8.1=h9ed2024_0
-scikit-learn=0.24.1=py37hb2f4e1b_0
-scipy=1.6.1=py37h2515648_0
-seaborn=0.11.1=pyhd3eb1b0_0
-setuptools=52.0.0=py37hecd8cb5_0
-six=1.15.0=py37hecd8cb5_0
-sqlite=3.35.1=hce871da_0
-tensorboard=2.0.0=pyhb38c66f_1
-tensorflow=2.0.0=mkl_py37hda344b4_0
-tensorflow-base=2.0.0=mkl_py37h66b1bf0_0
-tensorflow-estimator=2.0.0=pyh2649769_0
-termcolor=1.1.0=py37hecd8cb5_1
-threadpoolctl=2.1.0=pyh5ca1d4c_0
-tk=8.6.10=hb0a8c7a_0
-tornado=6.1=py37h9ed2024_0
-traitlets=5.0.5=pyhd3eb1b0_0
-typing_extensions=3.7.4.3=pyha847dfd_0
-wcwidth=0.2.5=py_0
-werkzeug=1.0.1=pyhd3eb1b0_0
-wheel=0.36.2=pyhd3eb1b0_0
-wrapt=1.12.1=py37h1de35cc_1
-xz=5.2.5=h1de35cc_0
-zeromq=4.3.3=hb1e8313_3
-zipp=3.4.1=pyhd3eb1b0_0
-zlib=1.2.11=h1de35cc_3
-zstd=1.4.5=h41d2c2f_0
+absl-py @ file:///opt/concourse/worker/volumes/live/369745d3-6991-42a3-71cb-795aa3d79471/volume/absl-py_1615411186320/work
+appnope @ file:///opt/concourse/worker/volumes/live/4f734db2-9ca8-4d8b-5b29-6ca15b4b4772/volume/appnope_1606859466979/work
+astor==0.8.1
+backcall @ file:///home/ktietz/src/ci/backcall_1611930011877/work
+certifi==2020.6.20
+coverage @ file:///opt/concourse/worker/volumes/live/4f1a5e30-f675-4496-6570-bc6669a34f2a/volume/coverage_1614614860186/work
+cycler==0.10.0
+Cython @ file:///opt/concourse/worker/volumes/live/55fb26d1-72e7-437a-7d3f-9637af0c7012/volume/cython_1614014833740/work
+decorator @ file:///home/ktietz/src/ci/decorator_1611930055503/work
+gast==0.2.2
+google-pasta==0.2.0
+graphviz==0.16
+grpcio @ file:///opt/concourse/worker/volumes/live/4f7ebd3c-7c5e-48f7-6ff5-de127acdc0d8/volume/grpcio_1614884166576/work
+h5py @ file:///opt/concourse/worker/volumes/live/98bee3fd-2687-4017-5421-d742d1f18c35/volume/h5py_1593454156895/work
+importlib-metadata @ file:///opt/concourse/worker/volumes/live/ae7e927e-57e2-4966-7b89-25dc6a80092c/volume/importlib-metadata_1615900433179/work
+ipykernel @ file:///opt/concourse/worker/volumes/live/73e8766c-12c3-4f76-62a6-3dea9a7da5b7/volume/ipykernel_1596206701501/work/dist/ipykernel-5.3.4-py3-none-any.whl
+ipython @ file:///opt/concourse/worker/volumes/live/ac685347-76d6-4904-4b88-886c6a434f22/volume/ipython_1614616430264/work
+ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
+jedi @ file:///opt/concourse/worker/volumes/live/5006b7b5-a924-4788-6cfe-ae05d8be8830/volume/jedi_1606932947370/work
+joblib @ file:///tmp/build/80754af9/joblib_1613502643832/work
+jupyter-client @ file:///tmp/build/80754af9/jupyter_client_1601311786391/work
+jupyter-core @ file:///opt/concourse/worker/volumes/live/a699b83f-e941-4170-5136-bf87e3f37756/volume/jupyter_core_1612213304212/work
+Keras-Applications @ file:///tmp/build/80754af9/keras-applications_1594366238411/work
+Keras-Preprocessing @ file:///tmp/build/80754af9/keras-preprocessing_1612283640596/work
+kiwisolver @ file:///opt/concourse/worker/volumes/live/1e6d28e8-da14-4365-7344-567a05db7efc/volume/kiwisolver_1612282399491/work
+Markdown @ file:///opt/concourse/worker/volumes/live/255f8945-2411-4469-7c82-a749af3aef33/volume/markdown_1614363822772/work
+matplotlib @ file:///opt/concourse/worker/volumes/live/41e8cd50-031f-4dda-5787-dd3c4f4e0f08/volume/matplotlib-suite_1613407855571/work
+mkl-fft==1.3.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+numpy @ file:///opt/concourse/worker/volumes/live/a1b5ea96-b05c-40ba-5dfb-4542ece1c186/volume/numpy_and_numpy_base_1603491228242/work
+olefile==0.46
+opt-einsum==3.1.0
+pandas==1.2.3
+parso==0.7.0
+pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
+pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
+Pillow @ file:///opt/concourse/worker/volumes/live/a50650a0-aa5f-49d7-67b4-33442af0a044/volume/pillow_1615057387162/work
+prompt-toolkit @ file:///tmp/build/80754af9/prompt-toolkit_1602688806899/work
+protobuf==3.14.0
+ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pydot @ file:///Users/runner/miniforge3/conda-bld/pydot_1613571197511/work
+pydotplus==2.0.2
+Pygments @ file:///tmp/build/80754af9/pygments_1615143339740/work
+pyparsing @ file:///home/linux1/recipes/ci/pyparsing_1610983426697/work
+python-dateutil @ file:///home/ktietz/src/ci/python-dateutil_1611928101742/work
+pytz @ file:///tmp/build/80754af9/pytz_1612215392582/work
+pyzmq==20.0.0
+scikit-learn @ file:///opt/concourse/worker/volumes/live/4b416fcf-2a1b-4a30-781a-c588a35f6ca3/volume/scikit-learn_1614446663856/work
+scipy @ file:///opt/concourse/worker/volumes/live/ddcf9d39-c185-4171-5824-1a3a0e6d077d/volume/scipy_1614022795557/work
+seaborn @ file:///tmp/build/80754af9/seaborn_1608578541026/work
+six @ file:///opt/concourse/worker/volumes/live/f983ba11-c9fe-4dff-7ce7-d89b95b09771/volume/six_1605205318156/work
+tensorboard==2.0.0
+tensorflow==2.0.0
+tensorflow-estimator==2.0.0
+termcolor==1.1.0
+threadpoolctl @ file:///tmp/tmp9twdgx9k/threadpoolctl-2.1.0-py3-none-any.whl
+tornado @ file:///opt/concourse/worker/volumes/live/d531d395-893c-4ca1-6a5f-717b318eb08c/volume/tornado_1606942307627/work
+traitlets @ file:///home/ktietz/src/ci/traitlets_1611929699868/work
+typing-extensions @ file:///home/ktietz/src/ci_mi/typing_extensions_1612808209620/work
+wcwidth @ file:///tmp/build/80754af9/wcwidth_1593447189090/work
+Werkzeug @ file:///home/ktietz/src/ci/werkzeug_1611932622770/work
+wrapt==1.12.1
+zipp @ file:///tmp/build/80754af9/zipp_1615904174917/work
