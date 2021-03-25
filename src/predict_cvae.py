@@ -7,8 +7,6 @@ import os, sys
 sys.path.insert(0, '..')
 from src.models.config import SEED
 from src.utils import performance_rank_df, performance_rank_n, performance_rank_f1_opt
-from src.utils import plot_precision_recall, plot_loss, plot_auc, plot_history, plot_metrics, plot_rank
-from src.utils import reset_random_seeds
 from pickle import load
 import warnings
 from datetime import datetime
@@ -24,9 +22,7 @@ import tensorflow as tf
 tf.keras.backend.clear_session()
 tf.random.set_seed(SEED)
 from tensorflow import keras
-from tensorflow.keras.models import Model, Sequential, load_model
-from tensorflow.keras.layers import Input, Dense, Activation, Dropout, BatchNormalization, Lambda
-from tensorflow.keras import regularizers
+from tensorflow.keras.models import load_model
 from tensorflow.keras import backend as K
 from tensorflow.keras import utils
 
