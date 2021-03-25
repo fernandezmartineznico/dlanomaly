@@ -15,6 +15,9 @@ jobs:
           sudo -H pip install -r requirements-prod.txt
           
           cd src/
+
+          sudo -H apt install python3.7
+          python --version
           
           sudo -H python predict_cvae.py
 
