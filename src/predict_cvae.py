@@ -97,4 +97,4 @@ plt.text(pred.mean()*1.1, max_ylim*0.9, 'Mean: {:.2f}'.format(pred.mean()))
 plt.title("predictions-" + datetime.now().strftime('%Y%m%d'))
 
 report_figure_name = "histogram_predictions" #"histogram_predictions-" + datetime.now().strftime('%Y%m%d')
-plt.savefig(F"../reports/figures/{report_figure_name}.png",dpi=120)
+plt.savefig(F"{report_figure_name}.png",dpi=120) #../reports/figures/
