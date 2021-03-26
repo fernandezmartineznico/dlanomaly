@@ -86,7 +86,7 @@ pred = final_model.predict([X_pred_st, z_mean_pred])[:,0]
 print("# Predictions: ", pred[:5])
 
 # Write AUC to a file
-report_name = "predictions-" + datetime.now().strftime('%Y%m%d')
+report_name = "predictions" #"predictions-" + datetime.now().strftime('%Y%m%d')
 np.savetxt(F"../reports/predictions/{report_name}.txt", pred, delimiter=',')
 
 plt.style.use('ggplot')
@@ -96,5 +96,5 @@ min_ylim, max_ylim = plt.ylim()
 plt.text(pred.mean()*1.1, max_ylim*0.9, 'Mean: {:.2f}'.format(pred.mean()))
 plt.title("predictions-" + datetime.now().strftime('%Y%m%d'))
 
-report_figure_name = "histogram_predictions-" + datetime.now().strftime('%Y%m%d')
+report_figure_name = "histogram_predictions" #"histogram_predictions-" + datetime.now().strftime('%Y%m%d')
 plt.savefig(F"../reports/figures/{report_figure_name}.png",dpi=120)

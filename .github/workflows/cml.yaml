@@ -21,4 +21,8 @@ jobs:
           sudo -H python predict_cvae.py
           echo "TEST passed"
 
+          echo "# Predictions distribution" > report.md
+          cml-publish reports/figures/histogram_predictions.png --md >> report.md
+          cml-send-comment report.md
+
 
