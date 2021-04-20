@@ -153,7 +153,7 @@ class AE(tf.keras.Model):
         self.decoder_neurons = decoder_neurons
         self.hidden_activation = hidden_activation
         self.output_activation = output_activation
-        self.latent_dim = self.encoder_neurons[-1])
+        self.latent_dim = self.encoder_neurons[-1]
         # self.loss = loss
 
         # Capas del AE
