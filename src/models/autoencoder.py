@@ -100,12 +100,7 @@ class Decoder(tf.keras.Model):
     def __init__(self, n_features, latent_dim, decoder_neurons,
                     hidden_activation, output_activation,
                     **kwargs):
-        super(Decoder, self).__init__(**kwargs)
-        self.decoder_neurons = decoder_neurons
-        self.n_features = n_features
-        self.hidden_activation = hidden_activation
-        self.output_activation = output_activation
-        self.latent_dim = latent_dim    
+        super(Decoder, self).__init__(**kwargs)  
 
         # decoder layers
         self.decoder_layers = []
@@ -158,25 +153,13 @@ class AE(tf.keras.Model):
         self.decoder_neurons = decoder_neurons
         self.hidden_activation = hidden_activation
         self.output_activation = output_activation
+        self.latent_dim = self.encoder_neurons[-1])
         # self.loss = loss
 
         # Capas del AE
-        self.encoder = Encoder(
-            n_features = self.n_features_,
-            encoder_neurons = self.encoder_neurons,
-            hidden_activation = self.hidden_activation
-            )
-        self.decoder = Decoder(
-            n_features = self.n_features_,
-            latent_dim = self.encoder_neurons[-1],
-            decoder_neurons = self.decoder_neurons,
-            hidden_activation = self.hidden_activation,
-            output_activation = self.output_activation
-            )
-        self.ae_loss = LossAE(
-            n_features = self.n_features_,
-            loss = self.loss
-            )
+        self.encoder = Encoder(self)
+        self.decoder = Decoder(self)
+        self.ae_loss = LossAE(self)
 
     def call(self, inputs): # , training=None, mask=None
         encoded = self.encoder(inputs)
@@ -277,23 +260,11 @@ class VAE(tf.keras.Model):
         # self.loss = loss
 
         # Capas del VAE
-        self.encoder = EncoderVAE(
-            n_features = self.n_features_,
-            latent_dim = self.latent_dim,
-            encoder_neurons = self.encoder_neurons,
-            hidden_activation = self.hidden_activation)
-        # self.vae_loss = LossVAE(
-        #     n_features = self.n_features_,
-        #     loss = self.loss)
-        # self.normal_distribution = NormalDistribution(
-        #     latent_dim = self.latent_dim)
-        # self.reparametrize = Reparametrize()
-        self.decoder = Decoder(
-            n_features = self.n_features_,
-            decoder_neurons = self.decoder_neurons,
-            latent_dim = self.latent_dim,
-            hidden_activation = self.hidden_activation,
-            output_activation = self.output_activation)
+        self.encoder = EncoderVAE(self)
+        # self.vae_loss = LossVAE(self)
+        # self.normal_distribution = NormalDistribution(self)
+        # self.reparametrize = Reparametrize(self)
+        self.decoder = Decoder(self)
 
     def call(self, inputs): # , training=None, mask=None
         z_mean, z_log_var, z = self.encoder(inputs)
